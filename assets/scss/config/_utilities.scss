@@ -1,0 +1,100 @@
+/* stylelint-disable scss/no-global-function-names */
+$utilities: map-merge(
+  $utilities,
+  (
+    'background': (
+      property: 'background',
+      class: 'bg',
+      responsive: true,
+      values: (
+        'primary-gradient': linear-gradient(90deg, $blue-800 0%, $primary 100%),
+        'transparent': transparent,
+        'mask': rgba($blue-900, 0.9),
+        'body': $gray-100,
+        'body-light': $blue-100
+      )
+    )
+  )
+);
+$utilities: map-merge(
+  $utilities,
+  (
+    'color': (
+      property: 'color',
+      class: 'text',
+      responsive: true,
+      values: (
+        'body': $dark,
+        'body-white': $gray-100,
+        'primary': $primary,
+        'blue-400': $blue-400,
+        'muted': $text-muted,
+        'accent': $danger
+      )
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'border-color': (
+      property: 'border-color',
+      class: 'border',
+      values: (
+        'layout': $gray-300
+      )
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'white-space': (
+      property: 'white-space',
+      class: 'whitespace',
+      responsive: true,
+      values: (
+        'nowrap': nowrap
+      )
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'z-index': (
+      property: 'z-index',
+      class: 'z',
+      responsive: true,
+      values: (
+        'toast': 12,
+        'header': 10,
+        'mask': 8,
+        'to-top': 7,
+        'minus': -1,
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5
+      )
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'cursor': (
+      property: 'cursor',
+      responsive: true,
+      values: (
+        'pointer': pointer
+      )
+    )
+  )
+);

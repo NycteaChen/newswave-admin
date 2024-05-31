@@ -1,19 +1,20 @@
 import { defineStore } from 'pinia';
 
-interface UserInfo {
-  account: string;
-}
-
 export const useUserStore = defineStore('user', {
   state: () => ({
-    account: ''
+    id: '',
+    name: '',
+    email: ''
   }),
   actions: {
-    SET_USER_INFO(value: UserInfo): void {
+    SET_USER_INFO(value: UserInfoType): void {
       Object.entries(value || {}).forEach(([key, val]) => {
-        this[key as keyof UserInfo] = val;
+        this[key as keyof UserInfoType] = val;
       });
     }
+  },
+  persist: {
+    storage: persistedState.localStorage
   }
 });
 
