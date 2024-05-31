@@ -40,16 +40,58 @@ export default defineNuxtConfig({
       ]
     }
   },
+  css: ['~/assets/scss/main.scss'],
+  postcss: {
+    plugins: {
+      autoprefixer: true
+    }
+  },
+  vite: {
+    build: { assetsInlineLimit: 0 },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @import "bootstrap/scss/functions";
+            @import "~/assets/scss/config/_variables.scss";
+            @import "bootstrap/scss/mixins";
+          `
+        }
+      }
+    }
+  },
   typescript: {
     typeCheck: true
   },
-  css: ['~/assets/scss/main.scss'],
-  modules: ['@nuxtjs/stylelint-module', '@pinia/nuxt', '@vueuse/nuxt'],
+  modules: ['@nuxtjs/stylelint-module', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@vueuse/nuxt'],
   stylelint: {
     lintOnStart: false, // 專案啟動時不自動檢查所有相關檔案
     chokidar: true // 監聽文件異動進行檢核（文件未列出此選項）
   },
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**']
+  },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false
+    }
+  ],
+  imports: {
+    dirs: [
+      // Scan top-level modules
+      'composables',
+      // ... or scan modules nested one level deep with a specific name and file extension
+      'composables/*/index.{ts,js,mjs,mts}',
+      // ... or scan all modules within given directory
+      'composables/**',
+      'types/*.ts',
+      'types/**/*.ts'
+    ]
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE
+    }
   }
 });
