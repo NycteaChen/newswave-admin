@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <nuxt-page />
-    <div>這是後台</div>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
-<script lang="ts" setup>
-// const validators: any = useValidator();
-</script>
+<script lang="ts" setup></script>

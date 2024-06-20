@@ -1,5 +1,12 @@
 <template>
   <div>
-    <p>這是首頁</p>
+    <slot />
   </div>
 </template>
+<script lang="ts" setup>
+const router = useRouter();
+
+onMounted(() => {
+  router.replace('/dashboard');
+});
+</script>
