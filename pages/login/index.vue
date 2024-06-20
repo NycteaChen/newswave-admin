@@ -1,63 +1,75 @@
 <template>
   <div class="login-container d-flex justify-content-center align-items-center vh-100">
     <div class="login-box bg-white p-5 rounded shadow-lg text-center">
-      <div class="newswave mb-4">newswave</div>
-      <h1 class="mb-4">後台管理者登入</h1>
-      <form @submit.prevent="handleLogin">
+      <div class="newswave mb-2">NewsWave</div>
+      <h1 class="mb-4">後台管理系統</h1>
+      <form>
         <div class="mb-3 text-start">
-          <label for="username" class="form-label">用戶名</label>
-          <input type="text" id="username" v-model="username" class="form-control" required />
+          <label
+            for="username"
+            class="form-label"
+            >帳號</label
+          >
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            required
+          />
         </div>
         <div class="mb-4 text-start">
-          <label for="password" class="form-label">密碼</label>
-          <input type="password" id="password" v-model="password" class="form-control" required />
+          <label
+            for="password"
+            class="form-label"
+            >密碼</label
+          >
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            required
+          />
         </div>
-        <button type="submit" class="btn btn-primary w-100">登入</button>
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+        >
+          登入
+        </button>
       </form>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const username = ref('');
-const password = ref('');
-const router = useRouter();
-
-const handleLogin = () => {
-  // 這裡可以添加你的驗證邏輯，例如調用 API 來驗證用戶名和密碼
-  if (username.value === 'admin' && password.value === 'admin') {
-    router.push('/admin/dashboard');
-  } else {
-    alert('用戶名或密碼錯誤');
-  }
-};
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
 .login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 .login-box {
+  padding: 2rem;
   max-width: 400px;
   width: 100%;
-  padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 1s ease-in-out;
+  background-color: white;
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  text-align: center;
+  animation: fade-in 1s ease-in-out;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -65,17 +77,18 @@ const handleLogin = () => {
 }
 
 .newswave {
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 h1 {
-  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   color: #333;
+  font-size: 1.8rem;
 }
 
 .form-label {
@@ -83,26 +96,34 @@ h1 {
 }
 
 .form-control {
+  display: block;
   padding: 0.75rem;
-  border-radius: 5px;
-  font-size: 1rem;
-  background-color: #f7f7f7;
+  width: 100%;
   border: 1px solid #ddd;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
 
   &:focus {
-    border-color: #1e3c72;
-    box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.25);
     outline: none;
+    border-color: #1e3c72;
+    box-shadow: 0 0 0 0.2rem rgb(30 60 114 / 25%);
   }
 }
 
 .btn-primary {
-  background-color: #1e3c72;
+  padding: 0.75rem;
+  width: 100%;
   border: none;
-  font-size: 1rem;
+  background-color: #1e3c72;
   font-weight: 500;
-  transition: background-color 0.3s, transform 0.2s;
+  font-size: 1rem;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 
   &:hover {
     background-color: #2a5298;
