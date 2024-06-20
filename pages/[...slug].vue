@@ -12,8 +12,8 @@
   </div>
 </template>
 <script lang="ts" setup>
-useHead({
-  titleTemplate: (title) => `${title} - 404`
+definePageMeta({
+  layout: 'login'
 });
 </script>
 <style lang="scss" scoped>

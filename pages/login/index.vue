@@ -40,9 +40,11 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup></script>
-
+<script lang="ts" setup>
+definePageMeta({
+  layout: 'login'
+});
+</script>
 <style lang="scss" scoped>
 .login-container {
   display: flex;

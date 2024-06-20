@@ -63,13 +63,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
-  modules: [
-    '@nuxtjs/stylelint-module',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
-    '@vueuse/nuxt',
-    '@ant-design-vue/nuxt'
-  ],
+  modules: ['@nuxtjs/stylelint-module', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@vueuse/nuxt'],
   stylelint: {
     lintOnStart: false, // 專案啟動時不自動檢查所有相關檔案
     chokidar: true // 監聽文件異動進行檢核（文件未列出此選項）
