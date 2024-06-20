@@ -43,46 +43,45 @@
     </div>
   </main>
 </template>
-
 <script setup lang="ts">
-import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import { ref, onMounted } from 'vue';
 
 Chart.register(...registerables);
 
 const registrationChart = ref<HTMLCanvasElement | null>(null);
 
+const createChart = (ctx: CanvasRenderingContext2D) =>
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+      datasets: [
+        {
+          label: '註冊人數',
+          data: [100, 200, 300, 400, 500, 600],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
 onMounted(() => {
   const ctx = registrationChart.value?.getContext('2d');
   if (ctx) {
-    const config: ChartConfiguration = {
-      type: 'line',
-      data: {
-        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-        datasets: [
-          {
-            label: '註冊人數',
-            data: [100, 200, 300, 400, 500, 600],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    Chart.create(ctx, config);
+    createChart(ctx);
   }
 });
 </script>
-
 <style lang="scss" scoped>
 .main {
   padding-top: 2rem;
