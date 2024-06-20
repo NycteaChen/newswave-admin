@@ -4,7 +4,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-definePageMeta({
-  layout: 'login'
+const router = useRouter();
+
+onMounted(() => {
+  router.replace('/dashboard');
 });
 </script>
