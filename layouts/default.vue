@@ -92,7 +92,11 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+});
+</script>
 <style lang="scss" scoped>
 .admin-dashboard {
   display: flex;

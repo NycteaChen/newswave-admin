@@ -73,7 +73,7 @@ const submit = async () => {
     const response = await login(formData);
     if (response.token) {
       token.value = response.token;
-      navigateTo('/admin/dashboard');
+      navigateTo('/dashboard');
     } else {
       console.error('Login failed: No token received');
     }
