@@ -1,17 +1,21 @@
 <template>
   <div class="login-container d-flex justify-content-center align-items-center vh-100">
     <div class="login-box bg-white p-5 rounded shadow-lg text-center">
-      <div class="newswave mb-2">NewsWave</div>
-      <h1 class="mb-4">後台管理系統</h1>
-      <form>
+      <div>
+        <n-logo class="mx-auto mb-2" />
+        <h1>{{ titleText }}</h1>
+      </div>
+
+      <form @submit.prevent="submit">
         <div class="mb-3 text-start">
           <label
-            for="username"
+            for="email"
             class="form-label"
             >帳號</label
           >
           <input
-            id="username"
+            id="email"
+            v-model="email"
             type="text"
             class="form-control"
             required
@@ -25,14 +29,15 @@
           >
           <input
             id="password"
+            v-model="password"
             type="password"
             class="form-control"
             required
           />
         </div>
         <button
-          type="submit"
           class="btn btn-primary w-100"
+          type="submit"
         >
           登入
         </button>
@@ -40,11 +45,44 @@
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 definePageMeta({
   layout: 'login'
 });
+
+const cookieOption = {
+  maxAge: 60 * 60
+};
+
+const token: any = useCookie('token', cookieOption);
+
+const titleText = ref<string>('後台管理系統');
+const email = ref<string>('');
+const password = ref<string>('');
+
+const { login } = useAdminApi();
+
+const submit = async () => {
+  try {
+    const formData = {
+      email: email.value,
+      password: password.value
+    };
+
+    const response = await login(formData);
+    if (response.token) {
+      token.value = response.token;
+      navigateTo('/admin/dashboard');
+    } else {
+      console.error('Login failed: No token received');
+    }
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
+};
 </script>
+
 <style lang="scss" scoped>
 .login-container {
   display: flex;
@@ -76,15 +114,6 @@ definePageMeta({
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.newswave {
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  background-clip: text;
-  color: transparent;
-  font-weight: 700;
-  font-size: 2rem;
 }
 
 h1 {

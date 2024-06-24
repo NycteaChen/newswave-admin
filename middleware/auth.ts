@@ -9,6 +9,7 @@ export default defineNuxtRouteMiddleware(() => {
   if (token.value) {
     return;
   }
+  console.log('auth');
   // eslint-disable-next-line consistent-return
   return navigateTo('/login');
 });

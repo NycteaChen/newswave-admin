@@ -92,7 +92,7 @@
     </div>
   </div>
 </template>
-
+<script setup lang="ts"></script>
 <style lang="scss" scoped>
 .admin-dashboard {
   display: flex;
