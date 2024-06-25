@@ -47,6 +47,10 @@
 <script setup lang="ts">
 import { Chart, registerables } from 'chart.js';
 
+definePageMeta({
+  middleware: 'auth'
+});
+
 Chart.register(...registerables);
 
 const registrationChart = ref<HTMLCanvasElement | null>(null);
