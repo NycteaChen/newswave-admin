@@ -12,6 +12,7 @@
           >
           <input
             id="username"
+            v-model="formState.email"
             type="text"
             class="form-control"
             required
@@ -25,14 +26,16 @@
           >
           <input
             id="password"
+            v-model="formState.password"
             type="password"
             class="form-control"
             required
           />
         </div>
         <button
-          type="submit"
+          type="button"
           class="btn btn-primary w-100"
+          @click="submit"
         >
           登入
         </button>
@@ -44,6 +47,29 @@
 definePageMeta({
   layout: 'login'
 });
+
+const { login } = useAdminApi();
+const cookieOption = {
+  maxAge: 60 * 60
+};
+
+const token: any = useCookie('token', cookieOption);
+
+const formState = reactive({ email: '', password: '' });
+
+const submit = async () => {
+  const { status, data, message } = await login(formState);
+
+  if (status) {
+    token.value = data?.token;
+
+    setTimeout(async () => {
+      await navigateTo('/dashboard');
+    }, 100);
+  } else {
+    console.log(message);
+  }
+};
 </script>
 <style lang="scss" scoped>
 .login-container {
