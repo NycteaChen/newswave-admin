@@ -3,7 +3,7 @@
     <div class="login-box bg-white p-5 rounded shadow-lg text-center">
       <div class="newswave mb-2">NewsWave</div>
       <h1 class="mb-4">後台管理系統</h1>
-      <form>
+      <form @submit.prevent="submit">
         <div class="mb-3 text-start">
           <label
             for="username"
@@ -33,11 +33,18 @@
           />
         </div>
         <button
-          type="button"
+          type="submit"
           class="btn btn-primary w-100"
-          @click="submit"
+          :disabled="isLoading"
         >
-          登入
+          <span
+            v-if="isLoading"
+            class="spinner-border spinner-border-sm me-2"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span v-if="isLoading">登入中...</span>
+          <span v-else>登入</span>
         </button>
       </form>
     </div>
@@ -56,8 +63,10 @@ const cookieOption = {
 const token: any = useCookie('token', cookieOption);
 
 const formState = reactive({ email: '', password: '' });
+const isLoading = ref(false)
 
 const submit = async () => {
+  isLoading.value = true;
   const { status, data, message } = await login(formState);
 
   if (status) {
@@ -69,6 +78,7 @@ const submit = async () => {
   } else {
     console.log(message);
   }
+  isLoading.value = false;
 };
 </script>
 <style lang="scss" scoped>
@@ -157,5 +167,9 @@ h1 {
     background-color: #2a5298;
     transform: translateY(-2px);
   }
+}
+
+.spinner-border {
+  vertical-align: text-bottom;
 }
 </style>

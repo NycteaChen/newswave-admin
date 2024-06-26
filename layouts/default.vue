@@ -76,6 +76,7 @@
                 <a
                   href="#"
                   class="nav-link"
+                  @click="logoutHandler"
                 >
                   <i class="bi bi-box-arrow-right me-2"></i>
                   登出
@@ -92,6 +93,11 @@
     </div>
   </div>
 </template>
+<script setup lang="ts">
+const logoutHandler = async () => {
+  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+};
+</script>
 <style lang="scss" scoped>
 .admin-dashboard {
   display: flex;
