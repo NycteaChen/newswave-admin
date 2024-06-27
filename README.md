@@ -66,6 +66,7 @@ http://localhost:4001/
 
 ```env
 NUXT_PUBLIC_API_BASE= # api 域名，請參照後台專案的 localhost: https://github.com/r37111081/newswave-backend
+FRONT_END_URL = #前台部屬網址
 ```
 
 ## 資料夾
