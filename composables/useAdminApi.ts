@@ -20,6 +20,30 @@ class adminApi {
 
     return res;
   }
+
+  static async createNewsArticle(body: CreateArticleRequestType): Promise<ApiResponseType<undefined>> {
+    const res = await useApi('/admin/create-news-article', {
+      method: 'post',
+      body
+    });
+
+    return res;
+  }
+
+  static async uploadImage(file: File): Promise<ApiResponseType<UploadResponseType>> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const res = await useApi('/admin/upload/image', {
+      method: 'post',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return res;
+  }
 }
 
 export default () => adminApi;

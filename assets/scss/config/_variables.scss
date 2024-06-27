@@ -301,7 +301,8 @@ $secondary: $blue-200 !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
-$danger: $red !default;
+$danger: $orange !default;
+$accent: $red !default;
 $light: $blue-100 !default;
 $dark: $gray-1000 !default;
 
@@ -657,7 +658,9 @@ $font-sizes: (
   3: $h3-font-size,
   4: $h4-font-size,
   5: $h5-font-size,
-  6: $h6-font-size
+  6: $h6-font-size,
+  sm: $font-size-sm,
+  xs: $font-size-base * 0.75
 ) !default;
 
 // scss-docs-end font-sizes
