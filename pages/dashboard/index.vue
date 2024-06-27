@@ -1,27 +1,15 @@
 <template>
-  <div class="dashboard container">
+  <div class="dashboard">
     <div class="row g-4 px-0 mt-0">
-      <div class="col-md-4">
+      <div
+        v-for="item in dataList"
+        :key="item.title"
+        class="col-4 mt-0"
+      >
         <div class="card shadow-sm h-100">
           <div class="card-body text-end">
-            <h2 class="display-6">在線人數</h2>
-            <p class="display-4 mb-0">23</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body text-end">
-            <h2 class="display-6">註冊人數</h2>
-            <p class="display-4 mb-0">1,092</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body text-end">
-            <h2 class="display-6">訂閱人數</h2>
-            <p class="display-4 mb-0">92</p>
+            <h4 class="display-6">{{ item.title }}</h4>
+            <p class="display-4">{{ item.count }}</p>
           </div>
         </div>
       </div>
@@ -30,7 +18,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h2 class="mb-4">註冊人數趨勢圖</h2>
+            <h4 class="mb-4">註冊人數趨勢圖</h4>
             <canvas
               ref="registrationChart"
               height="100"
@@ -46,7 +34,8 @@
 import { Chart, registerables } from 'chart.js';
 
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
+  title: '統計數據'
 });
 
 Chart.register(...registerables);
@@ -77,6 +66,21 @@ const createChart = (ctx: CanvasRenderingContext2D) =>
     }
   });
 
+const dataList = computed(() => [
+  {
+    title: '在線人數',
+    count: '23'
+  },
+  {
+    title: '註冊人數',
+    count: '1,092'
+  },
+  {
+    title: '訂閱人數',
+    count: '92'
+  }
+]);
+
 onMounted(() => {
   const ctx = registrationChart.value?.getContext('2d');
   if (ctx) {
@@ -89,10 +93,11 @@ onMounted(() => {
   .card {
     border: none;
     border-radius: 0.5rem;
+    box-shadow: 0 0 2px rgb(0 0 0 / 15%);
     transition: box-shadow 0.3s ease;
 
     &:hover {
-      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
     }
 
     .card-body {
@@ -101,7 +106,6 @@ onMounted(() => {
       .display-6 {
         margin-bottom: 0.5rem;
         color: #343a40;
-        font-weight: 500;
       }
 
       .display-4 {

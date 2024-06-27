@@ -21,14 +21,14 @@
         </div>
         <div class="flex-fill">
           <header class="d-flex align-items-center w-100 justify-content-between mb-2">
-            <h5 class="text-primary mb-0">系統提示</h5>
+            <h5 class="text-primary">系統提示</h5>
             <img
               class="toast-icon close-icon is-btn flex-shrink-0"
               :src="requireImage('icon/close-gray.svg')"
               @click="closeToast('hide')"
             />
           </header>
-          <p class="mb-0 break-word w-100">{{ toastInfo.message }}</p>
+          <p class="break-word w-100">{{ toastInfo.message }}</p>
         </div>
       </div>
       <img :src="requireImage('member/wave-2.svg')" />

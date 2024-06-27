@@ -4,7 +4,7 @@
       class="not-found-img"
       :src="requireImage('404/not-found.svg')"
     />
-    <h4 class="mb-0">查無此頁面</h4>
+    <h4>查無此頁面</h4>
   </div>
 </template>
 <script lang="ts" setup>
@@ -17,9 +17,7 @@ definePageMeta({
   max-width: 560px;
 }
 
-@include media-breakpoint-up(md) {
-  .not-found {
-    margin-top: 60px;
-  }
+.not-found {
+  margin-top: 60px;
 }
 </style>
