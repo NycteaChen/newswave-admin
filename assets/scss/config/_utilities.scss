@@ -16,6 +16,7 @@ $utilities: map-merge(
     )
   )
 );
+
 $utilities: map-merge(
   $utilities,
   (
@@ -29,7 +30,8 @@ $utilities: map-merge(
         'primary': $primary,
         'blue-400': $blue-400,
         'muted': $text-muted,
-        'accent': $danger
+        'accent': $accent,
+        'danger': $danger
       )
     )
   )
@@ -70,7 +72,6 @@ $utilities: map-merge(
       class: 'z',
       responsive: true,
       values: (
-        'toast': 12,
         'header': 10,
         'mask': 8,
         'to-top': 7,
@@ -93,7 +94,23 @@ $utilities: map-merge(
       property: 'cursor',
       responsive: true,
       values: (
-        'pointer': pointer
+        'pointer': pointer,
+        'not-allowed': not-allowed
+      )
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'flex': (
+      responsive: true,
+      property: flex,
+      values: (
+        1: 1 1 0,
+        fill: 1 1 auto,
+        unset: unset
       )
     )
   )

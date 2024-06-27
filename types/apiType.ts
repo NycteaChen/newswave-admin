@@ -27,6 +27,23 @@ declare global {
     totalPages: number;
     targetPage: number;
   }
+
+  interface UploadResponseType {
+    imgUrl: string;
+  }
+
+  interface CreateArticleRequestType {
+    topic: string;
+    editor: string;
+    title: string;
+    imageDescribe: string;
+    image: string;
+    content: string;
+    source: {
+      name: string;
+      url: string;
+    };
+  }
 }
 
 export {};
