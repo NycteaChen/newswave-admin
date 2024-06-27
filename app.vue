@@ -1,6 +1,10 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <teleport to="body">
+      <n-toast />
+    </teleport>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
-<script lang="ts" setup></script>

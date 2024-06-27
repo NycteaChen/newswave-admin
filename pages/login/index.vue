@@ -1,9 +1,12 @@
 <template>
   <div class="login-container d-flex justify-content-center align-items-center vh-100">
-    <div class="login-box bg-white p-5 rounded shadow-lg text-center">
-      <div class="newswave mb-2">NewsWave</div>
-      <h1 class="mb-4">後台管理系統</h1>
-      <form @submit.prevent="submit">
+    <div class="login-box bg-white p-5 rounded shadow-lg text-center d-flex flex-column gap-4 align-items-center">
+      <n-logo />
+      <h1 class="mb-0">後台管理系統</h1>
+      <form
+        class="w-100"
+        @submit.prevent="submit"
+      >
         <div class="mb-3 text-start">
           <label
             for="username"
@@ -42,9 +45,8 @@
             class="spinner-border spinner-border-sm me-2"
             role="status"
             aria-hidden="true"
-          ></span>
-          <span v-if="isLoading">登入中...</span>
-          <span v-else>登入</span>
+          />
+          <span>{{ isLoading ? '登入中...' : '登入' }}</span>
         </button>
       </form>
     </div>
@@ -52,7 +54,8 @@
 </template>
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'login'
+  layout: 'login',
+  middleware: 'no-auth'
 });
 
 const { login } = useAdminApi();
@@ -63,7 +66,7 @@ const cookieOption = {
 const token: any = useCookie('token', cookieOption);
 
 const formState = reactive({ email: '', password: '' });
-const isLoading = ref(false)
+const isLoading = ref(false);
 
 const submit = async () => {
   isLoading.value = true;
@@ -72,21 +75,21 @@ const submit = async () => {
   if (status) {
     token.value = data?.token;
 
-    setTimeout(async () => {
-      await navigateTo('/dashboard');
-    }, 100);
+    await navigateTo('/dashboard');
   } else {
-    console.log(message);
+    showToast({
+      id: 'fail-message',
+      icon: 'icon/warning.svg',
+      delay: 2500,
+      message
+    });
   }
+
   isLoading.value = false;
 };
 </script>
 <style lang="scss" scoped>
 .login-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   font-family: Roboto, sans-serif;
 }
@@ -114,17 +117,7 @@ const submit = async () => {
   }
 }
 
-.newswave {
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  background-clip: text;
-  color: transparent;
-  font-weight: 700;
-  font-size: 2rem;
-}
-
 h1 {
-  margin-bottom: 1.5rem;
   color: #333;
   font-size: 1.8rem;
 }
