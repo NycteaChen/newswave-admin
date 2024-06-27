@@ -5,12 +5,13 @@
         <a
           class="navbar-brand"
           href="#"
-          >NewsWave後台管理系統</a
         >
+          NewsWave後台管理系統
+        </a>
       </div>
     </header>
 
-    <div class="container-fluid">
+    <div class="admin-container container-fluid">
       <div class="row">
         <nav
           id="sidebarMenu"
@@ -18,75 +19,34 @@
         >
           <div class="position-sticky pt-3">
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <nuxt-link
-                  to="/dashboard"
-                  class="nav-link"
-                >
-                  <i class="bi bi-house-door me-2"></i>
-                  首頁
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link
-                  to=""
-                  class="nav-link"
-                >
-                  <i class="bi bi-card-list me-2"></i>
-                  訂閱管理
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link
-                  to=""
-                  class="nav-link"
-                >
-                  <i class="bi bi-people me-2"></i>
-                  用戶管理
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link
-                  to=""
-                  class="nav-link"
-                >
-                  <i class="bi bi-book me-2"></i>
-                  雜誌管理
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link
-                  to=""
-                  class="nav-link"
-                >
-                  <i class="bi bi-receipt me-2"></i>
-                  訂單管理
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <nuxt-link
-                  to=""
-                  class="nav-link"
-                >
-                  <i class="bi bi-file-text me-2"></i>
-                  內容管理
-                </nuxt-link>
-              </li>
-              <li class="nav-item">
-                <a
-                  href="#"
-                  class="nav-link"
+              <li
+                v-for="item in menuList"
+                :key="item.name"
+                class="nav-item"
+              >
+                <div
+                  v-if="item.path === 'logout'"
+                  class="nav-link cursor-pointer d-flex gap-2 align-items-center"
                   @click="logoutHandler"
                 >
-                  <i class="bi bi-box-arrow-right me-2"></i>
-                  登出
-                </a>
+                  <i :class="item.icon" />
+                  <span>{{ item.name }}</span>
+                </div>
+                <nuxt-link
+                  v-else
+                  :to="item.path"
+                  class="nav-link d-flex gap-2 align-items-center"
+                  :class="{ active: $route.name === item.path }"
+                >
+                  <i :class="item.icon" />
+                  <span>{{ item.name }}</span>
+                </nuxt-link>
               </li>
             </ul>
           </div>
         </nav>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-2">
+        <main class="col-md-9 ms-sm-auto col-lg-10 p-4">
           <slot />
         </main>
       </div>
@@ -94,15 +54,59 @@
   </div>
 </template>
 <script setup lang="ts">
+const token: any = useCookie('token');
 const logoutHandler = async () => {
-  document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  token.value = null;
+  navigateTo('/login');
 };
+
+const menuList = [
+  {
+    name: '首頁',
+    icon: 'bi bi-house-door',
+    path: 'dashboard'
+  },
+  {
+    name: '訂閱管理',
+    icon: 'bi bi-card-list',
+    path: 'subscription'
+  },
+  {
+    name: '用戶管理',
+    icon: 'bi bi-people',
+    path: 'member'
+  },
+  {
+    name: '雜誌管理',
+    icon: 'bi bi-book',
+    path: 'magazine'
+  },
+  {
+    name: '訂單管理',
+    icon: 'bi bi-receipt',
+    path: 'orders'
+  },
+  {
+    name: '文章管理',
+    icon: 'bi bi-file-text',
+    path: 'article'
+  },
+  {
+    name: '登出',
+    icon: 'bi bi-box-arrow-right',
+    path: 'logout'
+  }
+];
 </script>
 <style lang="scss" scoped>
 .admin-dashboard {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  padding-top: $header-height;
+
+  .admin-container {
+    height: calc(100vh - $header-height);
+  }
 }
 
 .row {

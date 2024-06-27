@@ -5,15 +5,11 @@
       :src="requireImage('404/not-found.svg')"
     />
     <h4 class="mb-0">查無此頁面</h4>
-    <n-button
-      text="返回"
-      @click="$router.back()"
-    />
   </div>
 </template>
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'login'
+  middleware: 'auth'
 });
 </script>
 <style lang="scss" scoped>

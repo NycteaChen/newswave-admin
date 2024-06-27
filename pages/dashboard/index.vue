@@ -1,47 +1,45 @@
 <template>
-  <main class="main">
-    <div class="container py-4">
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body text-end">
-              <h2 class="display-6">在線人數</h2>
-              <p class="display-4 mb-0">23</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body text-end">
-              <h2 class="display-6">註冊人數</h2>
-              <p class="display-4 mb-0">1,092</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body text-end">
-              <h2 class="display-6">訂閱人數</h2>
-              <p class="display-4 mb-0">92</p>
-            </div>
+  <div class="dashboard container">
+    <div class="row g-4 px-0 mt-0">
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-end">
+            <h2 class="display-6">在線人數</h2>
+            <p class="display-4 mb-0">23</p>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="mb-4">註冊人數趨勢圖</h2>
-              <canvas
-                ref="registrationChart"
-                height="100"
-              ></canvas>
-            </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-end">
+            <h2 class="display-6">註冊人數</h2>
+            <p class="display-4 mb-0">1,092</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-end">
+            <h2 class="display-6">訂閱人數</h2>
+            <p class="display-4 mb-0">92</p>
           </div>
         </div>
       </div>
     </div>
-  </main>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-4">註冊人數趨勢圖</h2>
+            <canvas
+              ref="registrationChart"
+              height="100"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -87,10 +85,7 @@ onMounted(() => {
 });
 </script>
 <style lang="scss" scoped>
-.main {
-  min-height: 100vh;
-  background-color: #f8f9fa;
-
+.dashboard {
   .card {
     border: none;
     border-radius: 0.5rem;
@@ -105,13 +100,13 @@ onMounted(() => {
 
       .display-6 {
         margin-bottom: 0.5rem;
-        font-weight: 500;
         color: #343a40;
+        font-weight: 500;
       }
 
       .display-4 {
-        font-weight: 700;
         color: #007bff;
+        font-weight: 700;
       }
 
       .fs-3 {
