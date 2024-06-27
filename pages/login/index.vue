@@ -2,7 +2,7 @@
   <div class="login-container d-flex justify-content-center align-items-center vh-100">
     <div class="login-box bg-white p-5 rounded shadow-lg text-center d-flex flex-column gap-4 align-items-center">
       <n-logo />
-      <h1 class="mb-0">後台管理系統</h1>
+      <h3>後台管理系統</h3>
       <form
         class="w-100"
         @submit.prevent="submit"
