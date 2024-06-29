@@ -9,9 +9,11 @@
     />
   </div>
 </template>
+
 <script setup lang="ts">
 import type { PaginationType } from '@/components/NPagination.vue';
 import type { ColumnItemType } from '@/components/NTable.vue';
+
 
 definePageMeta({
   middleware: 'auth',
@@ -21,7 +23,7 @@ definePageMeta({
 const tableColumn: ColumnItemType[] = [
   {
     title: '訂單編號',
-    dataIndex: 'transactionId',
+    dataIndex: '_id',
     width: '20%'
   },
   {
@@ -30,18 +32,8 @@ const tableColumn: ColumnItemType[] = [
     width: '20%'
   },
   {
-    title: '付款狀態',
-    dataIndex: 'payStatus',
-    width: '20%'
-  },
-  {
-    title: '建立時間',
-    dataIndex: 'createdAt',
-    width: '20%'
-  },
-  {
-    title: '到期日',
-    dataIndex: 'subscribeExpiredAt',
+    title: '方案類型',
+    dataIndex: 'planType',
     width: '20%'
   }
 ];
@@ -54,15 +46,27 @@ const pagination = reactive<PaginationType>({
 const dataList = ref([]);
 const loading = ref<boolean>(false);
 
+const fetchData = async (page: number) => {
+  loading.value = true;
+  const response = await useApi(`/admin/order-page?pageSize=${pagination.totalPages}&pageIndex=${page}`);
+
+  if (response.status) {
+    dataList.value = response.data.orders;
+    pagination.current = response.targetPage;
+    pagination.totalPages = response.totalPages;
+  } else {
+    console.error('Error fetching order data:', response);
+  }
+  loading.value = false;
+};
+
 const changePage = (page: number) => {
-  // pagination.current = page;
+  pagination.current = page;
+  fetchData(page);
   console.log('page :>> ', page);
 };
 
 onMounted(() => {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 3000);
+  fetchData(pagination.current);
 });
 </script>
