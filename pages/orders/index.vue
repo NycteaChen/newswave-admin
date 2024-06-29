@@ -14,7 +14,6 @@
 import type { PaginationType } from '@/components/NPagination.vue';
 import type { ColumnItemType } from '@/components/NTable.vue';
 
-
 definePageMeta({
   middleware: 'auth',
   title: '訂單管理'
@@ -48,25 +47,29 @@ const loading = ref<boolean>(false);
 
 const fetchData = async (page: number) => {
   loading.value = true;
-  const response = await useApi(`/admin/order-page?pageSize=${pagination.totalPages}&pageIndex=${page}`);
-
-  if (response.status) {
-    dataList.value = response.data.orders;
-    pagination.current = response.targetPage;
-    pagination.totalPages = response.totalPages;
-  } else {
-    console.error('Error fetching order data:', response);
+  const pageSize: number = 10;
+  try {
+    const response = await useApi(`/admin/order-page?pageIndex=${page}&pageSize=${pageSize}`);
+    
+    if (response.status) {
+      dataList.value = response.data.orders;
+      pagination.current = response.data.targetPage;
+      pagination.totalPages = response.data.totalPages;
+    } else {
+      console.error('Error fetching order data:', response);
+    }
+  } catch (error) {
+    console.error('Error fetching order data:', error);
+  } finally {
+    loading.value = false;
   }
-  loading.value = false;
 };
 
 const changePage = (page: number) => {
-  pagination.current = page;
   fetchData(page);
-  console.log('page :>> ', page);
 };
 
 onMounted(() => {
-  fetchData(pagination.current);
+  fetchData(1);
 });
 </script>
