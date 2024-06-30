@@ -29,7 +29,12 @@
               v-for="headCol in columns"
               :key="`row-${index}-${headCol.dataIndex}`"
             >
-              {{ item[headCol.dataIndex] }}
+              <slot
+                v-if="slots[headCol.dataIndex]"
+                :name="headCol.dataIndex"
+                :record="item"
+              />
+              <template v-else> {{ item[headCol.dataIndex] || '-' }} </template>
             </td>
           </tr>
           <tr
@@ -75,6 +80,8 @@ const props = withDefaults(defineProps<NTableProps>(), {
   pagination: false,
   tableLoading: false
 });
+
+const slots = useSlots();
 
 const currentPage = ref<PaginationType['current']>(1);
 

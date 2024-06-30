@@ -218,8 +218,6 @@ const submit = async () => {
 
   btnLoading.value = true;
 
-  console.log('submit', params);
-
   const { status, message } = await createNewsArticle(params);
 
   showToast({
