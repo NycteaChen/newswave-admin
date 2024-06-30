@@ -1,14 +1,44 @@
 <template>
   <div>
+    <div class="filters">
+      <n-input
+        v-model:value="filters.orderId"
+        inputmode="search"
+        placeholder="訂單編號"
+      />
+      <n-input
+        v-model:value="filters.userEmail"
+        placeholder="會員信箱"
+      />
+      <n-button
+        text="搜尋"
+        :disabled="loading"
+        @click="search"
+      />
+      <n-button
+        color="secondary"
+        text="清空"
+        :disabled="loading"
+        @click="reset"
+      />
+    </div>
     <n-table
       :columns="tableColumn"
       :pagination="pagination"
       :data-source="dataList"
       :table-loading="loading"
       @change-page="changePage"
-    />
+    >
+      <template #userName="{ record }">
+        {{ record?.userId?.name || '-' }}
+      </template>
+      <template #userEmail="{ record }">
+        {{ record?.userId?.email || '-' }}
+      </template>
+    </n-table>
   </div>
 </template>
+
 <script setup lang="ts">
 import type { PaginationType } from '@/components/NPagination.vue';
 import type { ColumnItemType } from '@/components/NTable.vue';
@@ -21,27 +51,22 @@ definePageMeta({
 const tableColumn: ColumnItemType[] = [
   {
     title: '訂單編號',
-    dataIndex: 'transactionId',
+    dataIndex: '_id',
+    width: '20%'
+  },
+  {
+    title: '會員信箱',
+    dataIndex: 'userEmail',
+    width: '20%'
+  },
+  {
+    title: '會員名稱',
+    dataIndex: 'userName',
     width: '20%'
   },
   {
     title: '方案名稱',
     dataIndex: 'itemName',
-    width: '20%'
-  },
-  {
-    title: '付款狀態',
-    dataIndex: 'payStatus',
-    width: '20%'
-  },
-  {
-    title: '建立時間',
-    dataIndex: 'createdAt',
-    width: '20%'
-  },
-  {
-    title: '到期日',
-    dataIndex: 'subscribeExpiredAt',
     width: '20%'
   }
 ];
@@ -53,16 +78,66 @@ const pagination = reactive<PaginationType>({
 
 const dataList = ref([]);
 const loading = ref<boolean>(false);
+const filters = reactive({
+  orderId: '',
+  userEmail: ''
+});
 
-const changePage = (page: number) => {
-  // pagination.current = page;
-  console.log('page :>> ', page);
+const fetchData = async (page: number) => {
+  loading.value = true;
+  const pageSize: number = 10;
+  try {
+    const { status, data, message } = await useApi(
+      `/admin/order-page?pageIndex=${page}&pageSize=${pageSize}&orderId=${filters.orderId}&userEmail=${filters.userEmail}`
+    );
+
+    if (status) {
+      dataList.value = data.orders;
+      pagination.current = data.targetPage;
+      pagination.totalPages = data.totalPages;
+    } else {
+      showToast({
+        id: 'search-fail',
+        message,
+        icon: 'icon/warning.svg'
+      });
+    }
+  } catch (error) {
+    showToast({
+      id: 'fail',
+      message: '不明錯誤',
+      icon: 'icon/warning.svg'
+    });
+  }
+
+  loading.value = false;
 };
 
-onMounted(() => {
+const search = () => {
+  fetchData(1);
+};
+
+const reset = () => {
+  filters.orderId = '';
+  filters.userEmail = '';
+};
+
+const changePage = (page: number) => {
+  fetchData(page);
+};
+
+onMounted(async () => {
   loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 3000);
+
+  await nextTick(() => {
+    search();
+  });
 });
 </script>
+<style lang="scss" scoped>
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+</style>
