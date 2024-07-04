@@ -19,7 +19,7 @@
         color="secondary"
         text="清空"
         :disabled="loading"
-        @click="reset"
+        @click="clear"
       />
     </div>
     <n-table
@@ -83,6 +83,12 @@ const filters = reactive({
   userEmail: ''
 });
 
+const resetData = () => {
+  dataList.value = [];
+  pagination.current = 1;
+  pagination.totalPages = 1;
+};
+
 const fetchData = async (page: number) => {
   loading.value = true;
   const pageSize: number = 10;
@@ -93,9 +99,10 @@ const fetchData = async (page: number) => {
 
     if (status) {
       dataList.value = data.orders;
-      pagination.current = data.targetPage;
       pagination.totalPages = data.totalPages;
     } else {
+      resetData();
+
       showToast({
         id: 'search-fail',
         message,
@@ -103,6 +110,8 @@ const fetchData = async (page: number) => {
       });
     }
   } catch (error) {
+    resetData();
+
     showToast({
       id: 'fail',
       message: '不明錯誤',
@@ -117,7 +126,7 @@ const search = () => {
   fetchData(1);
 };
 
-const reset = () => {
+const clear = () => {
   filters.orderId = '';
   filters.userEmail = '';
 };
