@@ -222,7 +222,8 @@ const submit = async () => {
 
   showToast({
     id: `add-${status}`,
-    message
+    message,
+    icon: status ? '' : 'icon/warning.svg'
   });
   if (status) {
     reset();
