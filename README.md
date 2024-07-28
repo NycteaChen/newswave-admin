@@ -10,7 +10,8 @@
 
 <img width="500" src="https://i.imgur.com/4ARRsXj.jpeg" />
 
-- DEMO: [NewsWave 管理後台](https://newswave-admin-qi9w.onrender.com/)
+- DEMO 1: https://newswave-admin.onrender.com/
+- DEMO 2: https://newswave-admin-qi9w.onrender.com/
 
 此為 [NewsWave](https://github.com/NycteaChen/newswave-frontend) 的後台管理系統
 
