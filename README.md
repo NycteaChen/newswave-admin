@@ -13,82 +13,79 @@
 - DEMO 1: https://newswave-admin.onrender.com/
 - DEMO 2: https://newswave-admin-qi9w.onrender.com/
 
-此為 [NewsWave](https://github.com/NycteaChen/newswave-frontend) 的後台管理系統
+This repo is the backend management system of [NewsWave](https://github.com/NycteaChen/newswave-frontend). 
 
-## 測試帳號
+## Test account
 
 ```bash
 Account： admin@gmail.com
 Password： admin1234
 ```
 
-## 畫面
+## Views
 
-![登入](https://i.imgur.com/vTMKNC5.png)
-![儀錶板](https://i.imgur.com/ZzhKJO0.png)
+### Login
+![Login](https://i.imgur.com/vTMKNC5.png)
 
-## 安裝
+### Stats
+![Stats](https://i.imgur.com/ZzhKJO0.png)
 
-以下將會引導你如何安裝此專案到你的電腦上。
+## Install
 
-Node.js 版本建議為：`18.17.1` 以上
+Node.js at least `v18.17.1`
 
-### 取得專案
+### Clone repo
 
 ```bash
 git clone https://github.com/NycteaChen/newswave-admin.git
 ```
 
-### 安裝套件
+### Install package
 
 ```bash
 npm install
 ```
 
-### 環境變數設定
+### Env setting
 
-請在終端機輸入 `cp .env.example .env` 來複製 .env.example 檔案，並依據 `.env` 內容調整相關欄位。
+Please enter `cp .env.example .env` in the terminal to copy the .env.example file and adjust the relevant fields according to the contents of `.env`.
 
-### 運行專案
+### Run repo
 
 ```bash
 npm run dev
 ```
 
-### 開啟專案
-
-在瀏覽器網址列輸入以下即可看到畫面
-
 ```bash
 http://localhost:4001/
 ```
 
-## 環境變數說明
+##About Env
 
 ```env
-NUXT_PUBLIC_API_BASE= # api 域名，請參照後台專案的 localhost: https://github.com/r37111081/newswave-backend
-FRONT_END_URL = #前台部屬網址
+NUXT_PUBLIC_API_BASE= # api domain, follow the backend repo localhost: https://github.com/r37111081/newswave-backend
+FRONT_END_URL = # front end url
 ```
 
 ## 資料夾
 
-- assets - 靜態資源放置處
-  - scss - scss 檔案放置處
-  - image - 圖片放置處
-- components - 拆分元件放置處
-  - _pages - 頁面獨有元件
-  - 全域共用元件
-- composables - 通用功能放置處（例：API）
-- layouts - 頁面佈局
-- middleware - 頁面身份驗證
-- pages - 頁面路由
-- plugins - 擴充插件、搭配 Composables、Provide 定義全局變數
-- public - 靜態資源放置處
-- stores - pinia 狀態管理
-- types - 全域共用 type 放置處
-- utils - 自訂共用方法
-- .env - 環境變數
-- nuxt.config.js - nuxt 3 設定
+- assets - Static resource
+  - scss 
+  - image
+- components
+  - _pages - Page components
+  - Global components
+- composables - General functions（e.g. Api）
+- layouts
+- middleware - Router auth
+- pages - Page router view
+- plugins
+- public 
+- stores - Pinia store
+- types - Global Type
+- utils - Custom sharing method
+- .env 
+- nuxt.config.js
 
 
 ## Technologies
@@ -112,14 +109,14 @@ FRONT_END_URL = #前台部屬網址
 
 ## CI/CD
 
-此專案有使用 Render 服務部屬，當專案 merge 到 master 時會自動執行以下動作：
+Use Render to auto-build, when merging to master :
 
-- 建立 Node.js 環境
-- 安裝相依套件
-- 編譯程式碼
-- 部署到 render
+- Build Node.js environment
+- Install package
+- Compile code
+- Build to Render
 
-## 開發團隊
+## Development Team
 
 - [chsiyu](https://github.com/sihyun-user)
 - [chrisT](https://github.com/r37111081)
