@@ -60,14 +60,14 @@ npm run dev
 http://localhost:4001/
 ```
 
-##About Env
+## About Env
 
 ```env
 NUXT_PUBLIC_API_BASE= # api domain, follow the backend repo localhost: https://github.com/r37111081/newswave-backend
 FRONT_END_URL = # front end url
 ```
 
-## 資料夾
+## Files
 
 - assets - Static resource
   - scss 
